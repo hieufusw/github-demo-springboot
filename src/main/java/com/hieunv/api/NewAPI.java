@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hieunv.dto.NewDTO;
 import com.hieunv.entity.CategoryEntity;
+import com.hieunv.entity.NewEntity;
 import com.hieunv.service.ICategoryService;
 import com.hieunv.service.INewService;
 
@@ -25,11 +26,16 @@ public class NewAPI {
 	@Autowired
 	private INewService newService;
 
-	@PostMapping(value = "/new")
+//	@PostMapping(value = "/new")
+//	public NewDTO createNew(@RequestBody NewDTO model) {
+//		return newService.save(model);
+//	}
+
+	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	public NewDTO createNew(@RequestBody NewDTO model) {
 		return newService.save(model);
-	}
-
+	} 
+	
 	@RequestMapping(value = "/category", method = RequestMethod.GET)
 	public List<CategoryEntity> getCategories() {
 		return iCategoryService.getAll();

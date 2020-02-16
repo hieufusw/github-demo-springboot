@@ -16,7 +16,7 @@ public class NewConverter {
 		return entity;
 	}
 	
-	//convert tu dot->entity thif phai convert ngc lai de tra ve API
+	//convert tu dto->entity thif phai convert ngc lai de tra ve API
 	public NewDTO toDTO(NewEntity entity) {
 		NewDTO dto = new NewDTO();
 		dto.setTitle(entity.getTitle());
