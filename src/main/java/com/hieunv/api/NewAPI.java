@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,9 +42,10 @@ public class NewAPI {
 		return iCategoryService.getAll();
 	}
 
-	@PutMapping(value = "/new")
-	public NewDTO updateNew(@RequestBody NewDTO model) {
-		return model;
+	@PutMapping(value = "/new/{id}") //syntax
+	public NewDTO updateNew(@RequestBody NewDTO model, @PathVariable("id") long id) {
+		model.setId(id);
+		return newService.save(model);
 	}
 
 	@DeleteMapping(value = "/new")
