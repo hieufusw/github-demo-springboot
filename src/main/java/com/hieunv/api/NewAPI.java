@@ -3,10 +3,7 @@ package com.hieunv.api;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hieunv.dto.NewDTO;
 import com.hieunv.entity.CategoryEntity;
-import com.hieunv.entity.NewEntity;
 import com.hieunv.service.ICategoryService;
 import com.hieunv.service.INewService;
 
@@ -42,14 +38,19 @@ public class NewAPI {
 		return iCategoryService.getAll();
 	}
 
-	@PutMapping(value = "/new/{id}") //syntax
+	@RequestMapping(value = "/new/{id}", method = RequestMethod.PUT)
 	public NewDTO updateNew(@RequestBody NewDTO model, @PathVariable("id") long id) {
 		model.setId(id);
 		return newService.save(model);
-	}
-
-	@DeleteMapping(value = "/new")
+	} 
+	
+	@RequestMapping(value = "/new", method = RequestMethod.DELETE)
 	public void deleteNew(@RequestBody long[] ids) {
-
-	}
+		newService.delete(ids);
+	} 
+	
+//	@DeleteMapping(value = "/new")
+//	public void deleteNew(@RequestBody long[] ids) {
+//
+//	}
 }
