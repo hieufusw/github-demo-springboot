@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,7 +53,7 @@ public class NewAPI {
 		newService.delete(ids);
 	}
 	
-	@GetMapping(value = "/new")
+	@RequestMapping(value = "/new", method = RequestMethod.GET)
 	public NewOutput showNew(@RequestParam("page") int page,
 							 @RequestParam("limit") int limit) {
 		NewOutput result = new NewOutput();
@@ -67,6 +66,6 @@ public class NewAPI {
 
 //	@DeleteMapping(value = "/new")
 //	public void deleteNew(@RequestBody long[] ids) {
-//
+//		newService.delete(ids);
 //	}
 }
