@@ -27,7 +27,7 @@ public class NewAPI {
 //	viết API add new user
 //	user có các option: id, userName, password
 //	trước khi thêm user vào DB phải check yêu cầu
-//	1 chữ cái viết hoa, có kí tự là số, nhiều hơn 6 kí tự
+//	1 chữ cái viết hoa, có kí tự là số, nhiều hơn 6 kí tự.
 	@Autowired
 	ICategoryService iCategoryService;
 
