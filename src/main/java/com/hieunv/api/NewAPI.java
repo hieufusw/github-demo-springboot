@@ -5,10 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,58 +20,74 @@ import com.hieunv.entity.CategoryEntity;
 import com.hieunv.service.ICategoryService;
 import com.hieunv.service.INewService;
 
-@RestController
+@RestController // = @Controller + @ResponseBody
 public class NewAPI {
 
+//	
+//	viết API add new user
+//	user có các option: id, userName, password
+//	trước khi thêm user vào DB phải check yêu cầu
+//	1 chữ cái viết hoa, có kí tự là số, nhiều hơn 6 kí tự
 	@Autowired
 	ICategoryService iCategoryService;
 
 	@Autowired
 	private INewService newService;
 
-//	@PostMapping(value = "/new")
-//	public NewDTO createNew(@RequestBody NewDTO model) {
-//		return newService.save(model);
+//	@RequestMapping(value = "/category", method = RequestMethod.GET)
+//	public List<CategoryEntity> getCategories() {
+//		return iCategoryService.getAll();
 //	}
 
-	@RequestMapping(value = "/category", method = RequestMethod.GET)
+	@PostMapping(value = "/new/search")
+	public List<NewDTO> searchNews(@RequestBody NewDTO model) {
+		return newService.findByTitle(model.getTitle());
+	}
+	@PostMapping(value = "/new/searchMUL")
+	public List<NewDTO> searchMUL(@RequestBody NewDTO model) {
+		return newService.findByTitleAndContent(model.getTitle(), model.getContent());
+	}
+	
+	@PostMapping(value = "/new/searcchByContent")
+	public List<NewDTO> searchNewsByContent(@RequestBody NewDTO model) {
+		return newService.findByContent(model.getContent());
+	}
+	
+	//@GetMapping = @RequestMapping + method
+	@GetMapping(value = "/category")
 	public List<CategoryEntity> getCategories() {
 		return iCategoryService.getAll();
 	}
 
-	@RequestMapping(value = "/new", method = RequestMethod.POST)
+	@PostMapping(value = "/new")
 	public NewDTO createNew(@RequestBody NewDTO model) {
 		return newService.save(model);
 	}
 
-	@RequestMapping(value = "/new/{id}", method = RequestMethod.PUT)
+	@PutMapping(value = "/new/{id}")
 	public NewDTO updateNew(@RequestBody NewDTO model, @PathVariable("id") long id) {
 		model.setId(id);
 		return newService.save(model);
 	}
 
-	@RequestMapping(value = "/new", method = RequestMethod.DELETE)
+	@DeleteMapping(value = "/new")
 	public void deleteNew(@RequestBody long[] ids) {
 		newService.delete(ids);
 	}
-	
-	@RequestMapping(value = "/new", method = RequestMethod.GET)
+
+	@GetMapping(value = "/new")
 	public NewOutput showNew(@RequestParam(value = "page", required = false) Integer page,
-							 @RequestParam(value = "limit", required = false) Integer limit) {
+			@RequestParam(value = "limit", required = false) Integer limit) {
 		NewOutput result = new NewOutput();
-		if(page != null && limit != null) {
+		if (page != null && limit != null) {
 			result.setPage(page);
-		Pageable pageable = new PageRequest(page-1, limit);
-		result.setListResult(newService.findAll(pageable));
-		result.setTotalPage((int) Math.ceil((double) (newService.totalItem())/limit)); 
+			Pageable pageable = new PageRequest(page - 1, limit);
+			result.setListResult(newService.findAll(pageable));
+			result.setTotalPage((int) Math.ceil((double) (newService.totalItem()) / limit));
 		} else {
 			result.setListResult(newService.findAll());
 		}
 		return result;
 	}
 
-//	@DeleteMapping(value = "/new")
-//	public void deleteNew(@RequestBody long[] ids) {
-//		newService.delete(ids);
-//	}
 }

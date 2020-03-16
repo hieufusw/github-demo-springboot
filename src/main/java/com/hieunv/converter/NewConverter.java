@@ -16,7 +16,7 @@ public class NewConverter {
 		return entity;
 	}
 	
-	//convert tu dto->entity thif phai convert ngc lai de tra ve API
+	//convert tu dto->entity vì sau khi ta lưu DB có du lieu ok xong thi phai convert ngc lai de tra ve API 
 	public NewDTO toDTO(NewEntity entity) {
 		NewDTO dto = new NewDTO();
 		if (entity.getId() != null) {

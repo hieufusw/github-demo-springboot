@@ -1,11 +1,13 @@
 package com.hieunv.dto;
 
-public class NewDTO extends AbstractDTO<NewDTO>{
+public class NewDTO extends AbstractDTO<NewDTO>{ //sinh ra dto de k anh huwogn den newEntity
 	private String title;
 	private String content;
 	private String shortDescription;
 	private String categoryCode;
 	private String thumbnail;
+	
+	
 	public String getTitle() {
 		return title;
 	}

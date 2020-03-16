@@ -65,8 +65,8 @@ public class UserEntity extends BaseEntity {
 		return roles;
 	}
 
-	public void setRoles(List<RoleEntity> roles) {
-		this.roles = roles;
+	public void setRoles(List<RoleEntity> roleEntity) {
+		this.roles = roleEntity;
 	}
 
 }

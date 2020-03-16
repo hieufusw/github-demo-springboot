@@ -12,6 +12,9 @@ public interface INewService {
 	void delete(long[] ids);
 	List<NewDTO> findAll(Pageable pageable);
 	List<NewDTO> findAll();
+	List<NewDTO> findByTitle(String title);
+	List<NewDTO> findByContent(String content);
+	List<NewDTO> findByTitleAndContent(String title, String content);
 	int totalItem();
 }
 

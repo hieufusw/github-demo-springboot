@@ -41,15 +41,6 @@ public class NewService implements INewService {
 		return newConverter.toDTO(newEntity);
 	}
 
-	/*
-	 * @Override // khi update phai lay lai du lieu cu của nó public NewDTO
-	 * update(NewDTO newDTO) { NewEntity oldNewEntity =
-	 * newRepository.findOne(newDTO.getId()); NewEntity newEntity =
-	 * newConverter.toEntity(newDTO, oldNewEntity); CategoryEntity categoryEntity =
-	 * categoryRepository.findOneByCode(newDTO.getCategoryCode());
-	 * newEntity.setCategory(categoryEntity); newEntity =
-	 * newRepository.save(newEntity); return newConverter.toDTO(newEntity); }
-	 */
 	@Override
 	public void delete(long[] ids) {
 		for (long item : ids) {
@@ -77,6 +68,40 @@ public class NewService implements INewService {
 	public List<NewDTO> findAll() {
 		List<NewDTO> results = new ArrayList<>();
 		List<NewEntity> entities = newRepository.findAll();
+		for(NewEntity item : entities) {
+			NewDTO newDTO = newConverter.toDTO(item);
+			results.add(newDTO);
+		}
+		return results;
+	}
+
+	@Override
+	public List<NewDTO> findByTitle(String title) {
+		List<NewDTO> results = new ArrayList<>();
+		List<NewEntity> entities = newRepository.findByTitle(title);
+		for(NewEntity item : entities) {
+			NewDTO newDTO = newConverter.toDTO(item);
+			results.add(newDTO);
+		}
+		return results;
+	}
+
+	@Override
+	public List<NewDTO> findByContent(String content) {
+		List<NewDTO> results = new ArrayList<>();
+		List<NewEntity> entities = newRepository.findByContent(content);
+		for(NewEntity item : entities) {
+			NewDTO newDTO = newConverter.toDTO(item);
+			results.add(newDTO);
+		}
+		return results;
+	}
+
+
+	@Override
+	public List<NewDTO> findByTitleAndContent(String title, String content) {
+		List<NewDTO> results = new ArrayList<>();
+		List<NewEntity> entities = newRepository.findByTitleAndContent(title,content);
 		for(NewEntity item : entities) {
 			NewDTO newDTO = newConverter.toDTO(item);
 			results.add(newDTO);
