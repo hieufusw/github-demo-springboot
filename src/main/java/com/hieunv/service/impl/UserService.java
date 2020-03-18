@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.hieunv.converter.UserConverter;
@@ -29,9 +30,10 @@ public class UserService implements IUserService {
 	@Override
 	public UserDTO save(UserDTO userDTO) {
 		UserEntity userEntity = new UserEntity();
-		RoleEntity roleEntity = roleRepository.findOneByCode(userDTO.getRoleCode());
+		userEntity = userConverter.toEntity(userDTO);
+		userEntity.setPassword(new BCryptPasswordEncoder().encode(userDTO.getPassword()));
 		List<RoleEntity> list = new ArrayList<>();
-		list.add(roleEntity);
+		list.add(roleRepository.findOneByCode(userDTO.getRoleCode()));
 		userEntity.setRoles(list);
 		userEntity = userRepository.save(userEntity);
 		return userConverter.toDTO(userEntity);
