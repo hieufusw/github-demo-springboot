@@ -38,8 +38,14 @@ public class NewAPI {
 //	public List<CategoryEntity> getCategories() {
 //		return iCategoryService.getAll();
 //	}
-
-	@PostMapping(value = "/new/search")
+	
+//@GetMapping = @RequestMapping + method
+	@GetMapping(value = "/category")
+	public List<CategoryEntity> getCategories() {
+		return iCategoryService.getAll();
+	}
+	
+	@PostMapping(value = "/new/searchTitle")
 	public List<NewDTO> searchNews(@RequestBody NewDTO model) {
 		return newService.findByTitle(model.getTitle());
 	}
@@ -48,16 +54,6 @@ public class NewAPI {
 		return newService.findByTitleAndContent(model.getTitle(), model.getContent());
 	}
 	
-	@PostMapping(value = "/new/searcchByContent")
-	public List<NewDTO> searchNewsByContent(@RequestBody NewDTO model) {
-		return newService.findByContent(model.getContent());
-	}
-	
-	//@GetMapping = @RequestMapping + method
-	@GetMapping(value = "/category")
-	public List<CategoryEntity> getCategories() {
-		return iCategoryService.getAll();
-	}
 
 	@PostMapping(value = "/new")
 	public NewDTO createNew(@RequestBody NewDTO model) {

@@ -1,8 +1,6 @@
 package com.hieunv.dto;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class AbstractDTO<T> {
 private Long id;// khong can ham set
@@ -14,16 +12,16 @@ private Long id;// khong can ham set
 	private String modifieddBy;
 	
 	private Date modifiedDate;
-	
-	private List<T> listResult = new ArrayList<>();
-
-	public List<T> getListResult() {
-		return listResult;
-	}
-
-	public void setListResult(List<T> listResult) {
-		this.listResult = listResult;
-	}
+		
+//	private List<T> listResult = new ArrayList<>();
+//
+//	public List<T> getListResult() {
+//		return listResult;
+//	}
+//
+//	public void setListResult(List<T> listResult) {
+//		this.listResult = listResult;
+//	}
 
 	public Long getId() {
 		return id;

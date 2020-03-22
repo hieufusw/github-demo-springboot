@@ -24,7 +24,7 @@ public abstract class BaseEntity {
 	
 	@Column
 	@CreatedBy
-	private String createdBy;//lây tu user khi login, lay user là AuditorAwareImpl trong JpaAuditingConfig
+	private String createdBy;//lây tu user khi login, lay user là AuditorAwareImpl trong JpaAuditingConfig(làm tu dong cho 4 cái luôn)
 	
 	@Column
 	@CreatedDate

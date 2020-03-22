@@ -30,13 +30,27 @@ public class UserService implements IUserService {
 	@Override
 	public UserDTO save(UserDTO userDTO) {
 		UserEntity userEntity = new UserEntity();
-		userEntity = userConverter.toEntity(userDTO);
+		if (userDTO.getId() != null) {
+			UserEntity oldUser = userRepository.findOne(userDTO.getId());
+			userEntity = userConverter.toEntity(userDTO, oldUser);
+
+		} else {
+			userEntity = userConverter.toEntity(userDTO);
+		}
 		userEntity.setPassword(new BCryptPasswordEncoder().encode(userDTO.getPassword()));
 		List<RoleEntity> list = new ArrayList<>();
 		list.add(roleRepository.findOneByCode(userDTO.getRoleCode()));
 		userEntity.setRoles(list);
 		userEntity = userRepository.save(userEntity);
 		return userConverter.toDTO(userEntity);
+	}
+
+	@Override
+	public void delete(long[] ids) {
+		for(long item : ids) {
+			userRepository.delete(item);
+		}
+		
 	}
 
 }

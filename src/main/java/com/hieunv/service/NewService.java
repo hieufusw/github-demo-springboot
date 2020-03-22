@@ -30,10 +30,10 @@ public class NewService implements INewService {
 		NewEntity newEntity = new NewEntity();
 		if (newDTO.getId() != null)// dang update
 		{
-			NewEntity oldNewEntity = newRepository.findOne(newDTO.getId());
-			newEntity = newConverter.toEntity(newDTO, oldNewEntity);
+			NewEntity oldNewEntity = newRepository.findOne(newDTO.getId()); //đầu tiên get oldNew lên
+			newEntity = newConverter.toEntity(newDTO, oldNewEntity);// roi sau do converter sang new mới
 		} else {
-			newEntity = newConverter.toEntity(newDTO);
+			newEntity = newConverter.toEntity(newDTO); // conver nguyen ban
 		}
 		CategoryEntity categoryEntity = categoryRepository.findOneByCode(newDTO.getCategoryCode());
 		newEntity.setCategory(categoryEntity);
@@ -79,17 +79,6 @@ public class NewService implements INewService {
 	public List<NewDTO> findByTitle(String title) {
 		List<NewDTO> results = new ArrayList<>();
 		List<NewEntity> entities = newRepository.findByTitle(title);
-		for(NewEntity item : entities) {
-			NewDTO newDTO = newConverter.toDTO(item);
-			results.add(newDTO);
-		}
-		return results;
-	}
-
-	@Override
-	public List<NewDTO> findByContent(String content) {
-		List<NewDTO> results = new ArrayList<>();
-		List<NewEntity> entities = newRepository.findByContent(content);
 		for(NewEntity item : entities) {
 			NewDTO newDTO = newConverter.toDTO(item);
 			results.add(newDTO);
