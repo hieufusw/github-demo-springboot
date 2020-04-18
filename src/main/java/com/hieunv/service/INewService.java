@@ -10,17 +10,17 @@ public interface INewService {
 	NewDTO save(NewDTO newDTO);
 //	NewDTO update(NewDTO newDTO);
 	void delete(long[] ids);
-	List<NewDTO> findAll(Pageable pageable);
-	List<NewDTO> findAll();
 	List<NewDTO> findByTitle(String title);
 	List<NewDTO> findByTitleAndContent(String title, String content);
+	List<NewDTO> findAll(Pageable pageable);//phân trang
+	List<NewDTO> findAll();
 	int totalItem();
 }
 
 
 /*
  * Phan trang
- * 1. gui data ve client: input
+ * 1. gui data ve client: input - truyền từ client về
  * -page
  * -limit
  * 2. data trả ve tu server cho client: output 
@@ -33,6 +33,6 @@ public interface INewService {
  * limit: so item tren 1 page
  * totalPage: tong so page
  * totalItem: tong so item dc  tra ra
- * page: là sô trang hien tiện
+ * page: là sô trang hien tại
  */
  

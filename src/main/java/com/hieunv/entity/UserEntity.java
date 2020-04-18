@@ -10,15 +10,19 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 //user va role => many to many @ManyToMany =>> 1 bang trung gian user_role => user vs user_role là 1-n / role vs user_role la 1-n
 
 @Entity
 @Table(name = "user")
 public class UserEntity extends BaseEntity {
 	@Column(name = "username")
+	@NotBlank(message = "User Name is mandatory")
 	private String userName;
 	@Column
 	private String password;
+	@NotBlank(message = "Fullname is mandatory")
 	@Column(name = "fullname")
 	private String fullName;
 	@Column

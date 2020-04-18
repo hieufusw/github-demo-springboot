@@ -18,6 +18,9 @@ import com.hieunv.service.IUserService;
 @Service
 public class UserService implements IUserService {
 
+	
+	//^.*(?=.{8,})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$
+	
 	@Autowired
 	private UserRepository userRepository;
 
