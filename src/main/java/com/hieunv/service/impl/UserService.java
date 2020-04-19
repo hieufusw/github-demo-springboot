@@ -7,13 +7,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.hieunv.converter.UserConverter;
-import com.hieunv.dto.UserDTO;
+import com.hieunv.common.converter.UserConverter;
+import com.hieunv.common.dto.UserDTO;
 import com.hieunv.entity.RoleEntity;
 import com.hieunv.entity.UserEntity;
 import com.hieunv.repository.RoleRepository;
 import com.hieunv.repository.UserRepository;
 import com.hieunv.service.IUserService;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Service
 public class UserService implements IUserService {
@@ -55,5 +57,18 @@ public class UserService implements IUserService {
 		}
 		
 	}
+
+	@Override
+	public UserEntity findByUserName(String userName) {
+		return userRepository.findByUserName(userName);
+	}
+
+//	@Override
+//	public void updateNumberTimesLoginFail(HttpServletRequest request, UserEntity user, Long numberLoginFail) {
+//		String previousValue = CommonUtils.convertObjectToJsonValue(user);
+//		user.setNumberLoginFail(numberLoginFail);
+//		this.merge(request, previousValue, user);
+//	}
+
 
 }

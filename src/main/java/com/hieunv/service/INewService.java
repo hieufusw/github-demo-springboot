@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.data.domain.Pageable;
 
-import com.hieunv.dto.NewDTO;
+import com.hieunv.common.dto.NewDTO;
 
 public interface INewService {
 	NewDTO save(NewDTO newDTO);

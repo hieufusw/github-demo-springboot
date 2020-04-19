@@ -1,11 +1,10 @@
 package com.hieunv.service;
 
 import com.hieunv.common.request.LoginRequest;
-import com.hieunv.dto.WebLoginResponse;
+import com.hieunv.common.dto.WebLoginResponse;
 import com.hieunv.common.exception.BusinessException;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.IOException;
 
 public interface IAuthenticationBusiness {
     /**
