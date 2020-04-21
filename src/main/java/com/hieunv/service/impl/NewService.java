@@ -3,8 +3,10 @@ package com.hieunv.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hieunv.controller.output.NewOutput;
 import com.hieunv.service.INewService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,7 @@ import com.hieunv.entity.CategoryEntity;
 import com.hieunv.entity.NewEntity;
 import com.hieunv.repository.CategoryRepository;
 import com.hieunv.repository.NewRepository;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Service
 public class NewService implements INewService {
@@ -61,11 +64,6 @@ public class NewService implements INewService {
 	}
 
 	@Override
-	public int totalItem() {
-		return (int) newRepository.count();
-	}
-
-	@Override
 	public List<NewDTO> findAll() {
 		List<NewDTO> results = new ArrayList<>();
 		List<NewEntity> entities = newRepository.findAll();
@@ -74,6 +72,25 @@ public class NewService implements INewService {
 			results.add(newDTO);
 		}
 		return results;
+	}
+//
+//	@Override
+//	public int totalItem() {
+//		return (int) newRepository.count();
+//	}
+
+	@Override
+	public NewOutput showNew(Integer page, Integer limit) {
+		NewOutput result = new NewOutput();
+		if (page != null && limit != null) {
+			result.setPage(page);
+			Pageable pageable = new PageRequest(page - 1, limit);
+			result.setListResult(findAll(pageable));
+			result.setTotalPage((int) Math.ceil((double) (newRepository.count()) / limit));
+		} else {
+			result.setListResult(findAll());
+		}
+		return result;
 	}
 
 	@Override

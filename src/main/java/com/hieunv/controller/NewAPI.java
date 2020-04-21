@@ -72,18 +72,9 @@ public class NewAPI {
 	}
 
 	@GetMapping(value = "/new")
-	public NewOutput showNew(@RequestParam(value = "page", required = false) Integer page, //mac dinh la true=> phai chuyen vè false(co cũng đc, k co cũng dc)
-			@RequestParam(value = "limit", required = false) Integer limit) {
-		NewOutput result = new NewOutput();
-		if (page != null && limit != null) {
-			result.setPage(page);
-			Pageable pageable = new PageRequest(page - 1, limit);
-			result.setListResult(newService.findAll(pageable));
-			result.setTotalPage((int) Math.ceil((double) (newService.totalItem()) / limit));
-		} else {
-			result.setListResult(newService.findAll());
-		}
-		return result;
+	public NewOutput paging(@RequestParam(value = "page", required = false) Integer page, //mac dinh la true=> phai chuyen vè false(co cũng đc, k co cũng dc)
+							@RequestParam(value = "limit", required = false) Integer limit) {
+		return newService.showNew(page,limit);
 	}
 
 }

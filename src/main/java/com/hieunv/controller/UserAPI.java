@@ -1,20 +1,24 @@
 package com.hieunv.controller;
 
+import com.hieunv.common.dto.WebLoginResponse;
+import com.hieunv.common.exception.BusinessException;
+import com.hieunv.common.request.LoginRequest;
+import com.hieunv.service.IAuthenticationBusiness;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.hieunv.common.dto.UserDTO;
 import com.hieunv.service.IUserService;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 public class UserAPI {
 
 	@Autowired
 	private IUserService userSerive;
+	@Autowired
+	private IAuthenticationBusiness iAuthenticationBusiness;
 	
 	@PostMapping(value = "/user")
 	public UserDTO createUser(@RequestBody UserDTO model) {
@@ -30,5 +34,10 @@ public class UserAPI {
 	@DeleteMapping(value = "/user")
 	public void deleteUser(@RequestBody long[] ids) {
 		userSerive.delete(ids);
+	}
+
+	@GetMapping(value = "/login")
+	public WebLoginResponse login(@RequestBody LoginRequest loginRequest, HttpServletRequest request) throws BusinessException {
+		return iAuthenticationBusiness.webAuthen(loginRequest,request);
 	}
 }

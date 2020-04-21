@@ -27,22 +27,12 @@ public class UserEntity extends BaseEntity {
 	private String fullName;
 	@Column
 	private Integer status;
-	@Column(name = "number_login_fail")
-	private Long numberLoginFail;
-
-	public Long getNumberLoginFail() {
-		return numberLoginFail;
-	}
-
-	public void setNumberLoginFail(Long numberLoginFail) {
-		this.numberLoginFail = numberLoginFail;
-	}
 
 	@ManyToMany
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 
 	private List<RoleEntity> roles = new ArrayList<>();
-	
+
 	public String getUserName() {
 		return userName;
 	}

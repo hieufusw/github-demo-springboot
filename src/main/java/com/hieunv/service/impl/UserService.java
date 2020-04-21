@@ -58,17 +58,4 @@ public class UserService implements IUserService {
 		
 	}
 
-	@Override
-	public UserEntity findByUserName(String userName) {
-		return userRepository.findByUserName(userName);
-	}
-
-//	@Override
-//	public void updateNumberTimesLoginFail(HttpServletRequest request, UserEntity user, Long numberLoginFail) {
-//		String previousValue = CommonUtils.convertObjectToJsonValue(user);
-//		user.setNumberLoginFail(numberLoginFail);
-//		this.merge(request, previousValue, user);
-//	}
-
-
 }
